@@ -1,0 +1,13 @@
+{ 
+
+  "name": "AITEC-InternetOfThings",
+  "version" : "0.0.1",
+  "url" : "https://github.com/unSinn/AITEC-InternetOfThings.git",
+  "description": "Node.js Application providing a REST interface for Internet of Things.",
+  "author": "A unSinned individual",
+  "dependencies": {
+    "restify": "2.5.1"
+  },
+  "engine": "node 0.8.11"
+}
+
