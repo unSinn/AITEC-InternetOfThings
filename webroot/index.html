@@ -5,8 +5,21 @@
 
 </head>
 <body>
-	<form action="/things/lamp" method="post">
-		<input type="text" name="value" value="On" /> <input type="submit" />
-	</form>
+	<div>
+		<form action="/things/lamp" method="post">
+			<input type="hidden" name="value" value="on" /> <input
+				value="Turn lamp On" type="submit" />
+		</form>
+
+		<form action="/things/lamp" method="post">
+			<input type="hidden" name="value" value="off" /> <input
+				value="Turn lamp Off" type="submit" />
+		</form>
+
+		<form action="/things/lamp" method="post">
+			<input type="hidden" name="value" value="toggle" /> <input
+				value="Toggle lamp" type="submit" />
+		</form>
+	</div>
 </body>
 </html>

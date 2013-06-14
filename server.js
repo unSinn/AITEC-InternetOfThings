@@ -8,6 +8,11 @@ var sensors = require('./sensors.js');
 var sensorList = sensors.list();
 var server = restify.createServer();
 
+// Parse parameters in GET URL
+server.use(restify.queryParser());
+// Parse parameters in POST HTML body
+server.use(restify.bodyParser());
+
 /*
  * ====== Routing
  */
@@ -29,6 +34,8 @@ function getSensor(req, res, next) {
     var sensor = sensorList[req.params.name];
     if (sensor) {
 	res.send(sensor);
+    }else{
+	res.send({message: 'Sensor not found.'});
     }
     return next();
 }
@@ -36,19 +43,27 @@ function getSensor(req, res, next) {
 function sendList(req, res, next) {
     var list = {};
     for (s in sensorList) {
-	list[s] = sensorList[s].name;
+	list[s] = {};
+	list[s].name = sensorList[s].name;
+	list[s].description = sensorList[s].description;
     }
+    res.send(list);
     return next();
 }
 
 function setValue(req, res, next) {
-    console.log(req.params.name + ' will be updated when it is implemented, value would be' + req.params.value);
+    if(req.params.value === undefined){
+	restify.InvalidArgumentError('newSensorValue value not set.');
+	return next();
+    }
     var sensor = sensorList[req.params.name];
     var result;
     if (sensor) {
-	result = sensor.setValue('On');
+	result = sensor.setValue(req.params.value);
+	res.send({ok: result, valueIsNow: sensor.value});
+    }else{
+	res.send({ok: false, message: 'Sensor not found.'});
     }
-    res.send({ok: result, valueIsNow: sensor.value});
     return next();
 }
 

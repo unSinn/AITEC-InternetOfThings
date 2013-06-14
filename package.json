@@ -8,6 +8,6 @@
   "dependencies": {
     "restify": "2.5.1"
   },
-  "engine": "node 0.8.11"
+  "engine": "node 0.10.11"
 }
 
